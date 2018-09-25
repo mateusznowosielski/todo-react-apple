@@ -18,7 +18,7 @@ module.exports = {
       },
       {
         test: /\.(js|jsx)?$/,
-        exclude: /node_modules/,No ESLint configuration found.
+        exclude: /node_modules/,
         use: {
           loader: "eslint-loader"
         }
