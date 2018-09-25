@@ -1,0 +1,70 @@
+@circleCompleteBorder: #b4b4b4;
+@circleCheckedColor: #fd9426;
+
+.todoItem {
+  height: 36px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.todoItemInput {
+  display: inline-block;
+  height: 100%;
+  width: calc(100% - 70px);
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 12px;
+  margin-left: 1px;
+  margin-top: -2px;
+}
+
+.completeLabel {
+  display: inline-block;
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.completeLabel input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  left: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 14px;
+  width: 14px;
+  border-radius: 14px;
+  border: 1px solid @circleCompleteBorder;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.completeLabel input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.completeLabel .checkmark:after {
+  left: 2px;
+  top: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: @circleCheckedColor;
+}

@@ -1,0 +1,47 @@
+@headlineColor: #cb77df;
+@greyBorder: #c1c1c1;
+@greyDiv: #ededed;
+@itemHeight: 35px;
+@footerNoteColor: #555;
+
+.todo {
+  width: 500px;
+  height: 500px;
+  border: 1px solid @greyBorder;
+  margin: 30px auto 0;
+  border-radius: 5px;
+  box-shadow: 9px 17px 50px rgba(0, 0, 0, .5);
+  padding: 15px;
+  @media (max-width: 600px) {
+    margin-top: 10px;
+    width: 90%;
+  }
+}
+
+.headline {
+  color: @headlineColor;
+  font-weight: normal;
+  margin: 10px 0 0;
+}
+
+.todoViewport {
+  height: calc(100% - 68px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.todoContainer {
+  min-height: 100%;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent @itemHeight,
+    @greyDiv @itemHeight,
+    @greyDiv @itemHeight + 1
+  );
+}
+
+.footerNote {
+  padding-top: 10px;
+  font-size: 11px;
+  color: @footerNoteColor;
+}
