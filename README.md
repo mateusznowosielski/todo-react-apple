@@ -32,6 +32,6 @@ npm run build
 * hide completed: click 'Hide' to view only uncompleted todos.
 
 ### To be implemented
-* sorting todos: completed on top, but 
+* sorting todos: completed on top 
 * changing position of todos: by drag & drop
 * undo/redo: cmd+z / cmd+shift+z
