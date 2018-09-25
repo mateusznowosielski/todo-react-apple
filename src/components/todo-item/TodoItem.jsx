@@ -96,7 +96,8 @@ class TodoItem extends React.Component {
           className={styles.todoItemInput}
           defaultValue={this.props.todo.value}
           onBlur={this.handleBlur}
-          onKeyPress={this.handleKeyPress} />
+          onKeyPress={this.handleKeyPress}
+          placeholder={this.props.todo.id ? '' : 'New item'} />
       </div>
     );
   }
