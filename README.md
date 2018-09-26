@@ -1,6 +1,6 @@
 # todo-react-apple
 
-Inpired by Apple MacOS Reminders very simplified version of Todo list.
+Inspired by Apple MacOS Reminders very simplified version of Todo list.
 
 Becuase all todos have tons of unnecessary buttons.
 
