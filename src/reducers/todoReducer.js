@@ -7,9 +7,7 @@ const initState = {
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case todoActions.ADD:
-      const newTodoId = state.lastTodoId + 1;
       return {
-        ...state,
         todos: state.todos.concat({
           value: action.payload.value,
           completed: !!action.payload.completed,
@@ -23,13 +21,19 @@ const reducer = (state = initState, action) => {
       }
     case todoActions.UPDATE:
       return {
-        ...state,
         todos: state.todos.map(item => {
           if(action.payload && item.id === action.payload.id) {
             return {...item, ...action.payload}
           }
           return item;
         })
+      }
+    case todoActions.REORDER:
+      const todos = [...state.todos];
+      const [removed] = todos.splice(action.payload.startIndex, 1);
+      todos.splice(action.payload.endIndex, 0, removed);
+      return {
+        todos,
       }
     default: return state
   }

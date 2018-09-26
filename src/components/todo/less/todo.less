@@ -1,7 +1,5 @@
 @headlineColor: #cb77df;
 @greyBorder: #c1c1c1;
-@greyDiv: #ededed;
-@itemHeight: 35px;
 @footerNoteColor: #555;
 
 .todo {
@@ -22,22 +20,6 @@
   color: @headlineColor;
   font-weight: normal;
   margin: 10px 0 0;
-}
-
-.todoViewport {
-  height: calc(100% - 68px);
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.todoContainer {
-  min-height: 100%;
-  background: repeating-linear-gradient(
-    transparent,
-    transparent @itemHeight,
-    @greyDiv @itemHeight,
-    @greyDiv @itemHeight + 1
-  );
 }
 
 .footerNote {

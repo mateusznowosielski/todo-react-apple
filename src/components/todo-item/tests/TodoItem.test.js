@@ -32,10 +32,10 @@ describe('<TodoItem />', () => {
     expect(wrapper.find('input[type="checkbox"]').prop('checked')).to.equal(false);
   });
 
-  it('should test that todo input displays value when todo has value in props', () => {
+  it('should test that todo displays value when todo has value in props', () => {
     const todo = { id: 1, value: 'Random todo' };
     const wrapper = shallow(<TodoItem todo={todo} store={mockStore(store)}/>).dive();
-    expect(wrapper.find('input[type="text"]').prop('defaultValue')).to.equal(todo.value);
+    expect(wrapper.find('p')).to.have.text(todo.value);
   });
 
   it('should test that todo checkbox is selected when todo is completed in props', () => {

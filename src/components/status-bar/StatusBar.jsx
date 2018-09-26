@@ -7,19 +7,22 @@ import { showCompletedTodo,
 import styles from "./less/status-bar.less";
 
 const StatusBar = (props) => {
+  const { showCompleted } = props;
+  const completedTodosLength = props.todos.filter(todo => todo.completed).length;
+
   return (
     <header className={styles.statusBar}>
       <p className={styles.completedIndicator}>
         <span className={styles.completedAmount}>
-          {props.todos.filter(todo => todo.completed).length}
+          {completedTodosLength}
         </span>
         Completed
-        {(props.todos.filter(todo => todo.completed).length > 0) ?
+        {(completedTodosLength > 0) ?
           (<a
             href=""
             onClick={event => {
                 event.preventDefault();
-                if (props.showCompleted) {
+                if (showCompleted) {
                   props.hideCompletedTodo();
                 } else {
                   props.showCompletedTodo();
@@ -28,7 +31,7 @@ const StatusBar = (props) => {
             }
             className={styles.showHideSwitch}
           >
-            {props.showCompleted ? 'Hide' : 'Show'}
+            {showCompleted ? 'Hide' : 'Show'}
           </a>) : null}
       </p>
     </header>

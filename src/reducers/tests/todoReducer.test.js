@@ -135,4 +135,42 @@ describe('todoReducer', () => {
       ]
     });
   });
+
+  it('should test reordering todos', () => {
+    expect(
+      reducer({
+        todos: [
+          {
+            id: 1,
+            value: 'Random todo',
+            completed: false,
+          },
+          {
+            id: 2,
+            value: 'Random todo 2',
+            completed: false,
+          }
+        ]
+      }, {
+        type: todoActions.REORDER,
+        payload: {
+          startIndex: 0,
+          endIndex: 1,
+        },
+      })
+    ).toEqual({
+      todos: [
+        {
+          id: 2,
+          value: 'Random todo 2',
+          completed: false,
+        },
+        {
+          id: 1,
+          value: 'Random todo',
+          completed: false,
+        }
+      ]
+    });
+  });
 })

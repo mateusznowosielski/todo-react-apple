@@ -1,0 +1,21 @@
+@greyDiv: #ededed;
+@itemHeight: 35px;
+
+.todoViewport {
+  height: calc(100% - 68px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.todoContainer {
+  min-height: 100%;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent @itemHeight,
+    @greyDiv @itemHeight,
+    @greyDiv @itemHeight + 1
+  );
+  & [data-react-beautiful-dnd-drag-handle] {
+    cursor: default;
+  }
+}

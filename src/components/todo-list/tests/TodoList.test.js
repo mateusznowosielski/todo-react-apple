@@ -4,7 +4,7 @@ import { use, expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import configureStore from 'redux-mock-store';
 
-import Todo from "components/todo/Todo";
+import TodoList from "components/todo-list/TodoList";
 import TodoItem from "components/todo-item/TodoItem";
 
 const mockStore = configureStore();
@@ -20,18 +20,18 @@ const initStore = () => {
   }
 }
 
-describe('<Todo />', () => {
+describe('<TodoList />', () => {
   let store;
   beforeEach(() => {
     store = initStore();
   });
 
-  it('should render 1 new todo item as initialized', () => {
-    const wrapper = shallow(<Todo store={mockStore(store)}/>).dive();
-    expect(wrapper.find(TodoItem)).to.have.lengthOf(1);
+  it('should return 0 visible todos as initialized', () => {
+    const wrapper = shallow(<TodoList store={mockStore(store)}/>).dive();
+    expect(wrapper.instance().getVisibleTodos()).to.have.lengthOf(0);
   });
 
-  it('should render 3 todo items (including new) when 2 uncompleted', () => {
+  it('should return 2 visible todos for 2 uncompleted todos', () => {
     store.todoReducer.todos = [
       {
         id: 1,
@@ -42,11 +42,11 @@ describe('<Todo />', () => {
         value: "second",
       }
     ];
-    const wrapper = shallow(<Todo store={mockStore(store)}/>).dive();
-    expect(wrapper.find(TodoItem)).to.have.lengthOf(3);
+    const wrapper = shallow(<TodoList store={mockStore(store)}/>).dive();
+    expect(wrapper.instance().getVisibleTodos()).to.have.lengthOf(2);
   });
 
-  it('should render 2 todo items (including new) when 1 uncompleted and 1 completed', () => {
+  it('should return 1 visible todos for 1 uncompleted and 1 completed todos', () => {
     store.todoReducer.todos = [
       {
         id: 1,
@@ -58,11 +58,11 @@ describe('<Todo />', () => {
         completed: true,
       }
     ];
-    const wrapper = shallow(<Todo store={mockStore(store)}/>).dive();
-    expect(wrapper.find(TodoItem)).to.have.lengthOf(2);
+    const wrapper = shallow(<TodoList store={mockStore(store)}/>).dive();
+    expect(wrapper.instance().getVisibleTodos()).to.have.lengthOf(1);
   });
 
-  it('should render 3 todo items (including new) when 1 uncompleted and 1 completed when we show all todos', () => {
+  it('should return 2 visible todos for 1 uncompleted and 1 completed todos when showCompleted is true', () => {
     store.todoReducer.todos = [
       {
         id: 1,
@@ -75,7 +75,7 @@ describe('<Todo />', () => {
       }
     ];
     store.filterReducer.showCompleted = true;
-    const wrapper = shallow(<Todo store={mockStore(store)}/>).dive();
-    expect(wrapper.find(TodoItem)).to.have.lengthOf(3);
+    const wrapper = shallow(<TodoList store={mockStore(store)}/>).dive();
+    expect(wrapper.instance().getVisibleTodos()).to.have.lengthOf(2);
   });
 });

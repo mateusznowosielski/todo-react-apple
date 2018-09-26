@@ -1,22 +1,38 @@
 @circleCompleteBorder: #b4b4b4;
 @circleCheckedColor: #fd9426;
+@greyDiv: #ededed;
+@itemHeight: 35px;
 
 .todoItem {
-  height: 36px;
+  height: @itemHeight + 1;
   width: 100%;
   box-sizing: border-box;
+  background: #fff;
+  border-bottom: 1px solid @greyDiv;
+  overflow: hidden;
 }
 
 .todoItemInput {
   display: inline-block;
   height: 100%;
-  width: calc(100% - 70px);
+  width: calc(100% - 35px);
   border: none;
   outline: none;
   background: transparent;
   font-size: 12px;
   margin-left: 1px;
   margin-top: -2px;
+  cursor: default;
+}
+
+.todoItemStatic {
+  display: inline-block;
+  letter-spacing: 0.4px;
+  font-size: 12px;
+  margin: 10px 0 0 2px;
+  padding: 0;
+  width: calc(100% - 35px);
+  white-space: nowrap;
 }
 
 .completeLabel {

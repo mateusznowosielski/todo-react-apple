@@ -13,8 +13,14 @@ class TodoItem extends React.Component {
   constructor(props) {
     super(props);
 
-    // Setting timeout in case we're creating todo and immediately mark it as completed
+    // Setting timeout in case we're creating todo and immediately
+    // mark it as completed
     this.timoutId = null;
+
+    // edit mode for a todo that already exists
+    // when false we display static paragraph
+    // when true we display Input text field
+    this.state = { editMode: false };
   }
 
   /**
@@ -37,7 +43,11 @@ class TodoItem extends React.Component {
         }
       } else {
         if (value) {
-          this.props.updateTodo({id: this.props.todo.id, value});
+          this.setState({ editMode: false });
+          this.props.updateTodo({
+            id: this.props.todo.id,
+            value
+          });
         } else {
           this.props.removeTodo(this.props.todo.id);
         }
@@ -66,15 +76,46 @@ class TodoItem extends React.Component {
    * addTodo with value from input text field and completed flag.
    **/
   handleComplete = event => {
-    if (this.refs.todoInput.value) {
+    if (this.props.todo.id) {
+      this.props.updateTodo({
+        id: this.props.todo.id,
+        completed: event.target.checked,
+      });
+    } else {
       clearTimeout(this.timeoutId);
-      if (this.props.todo.id) {
-        this.props.updateTodo({id: this.props.todo.id, completed: event.target.checked});
-      } else {
-        this.props.addTodo({value: this.refs.todoInput.value, completed: event.target.checked});
+      if (this.refs.todoInput.value) {
+        this.props.addTodo({
+          value: this.refs.todoInput.value,
+          completed: event.target.checked,
+        });
         this.refs.todoInput.value = '';
       }
     }
+  }
+
+  /**
+   * When we click on static paragraph text we want to switch to edit mode
+   * end swap it with Input text field.
+   **/
+  handleStaticTextClick = () => {
+    this.setState({ editMode: true });
+  }
+
+  /**
+   * We need to set a focus back to input field as soon as user clicks
+   * on paragraph which after setState will convert to Input text field.
+   **/
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.editMode && this.state.editMode) {
+      this.refs.todoInput.focus();
+    }
+  }
+
+  /**
+   * We want to clean all Timeount before unmounting.
+   **/
+  componentWillUnmount() {
+    clearTimeout(this.timeoutId);
   }
 
   render() {
@@ -90,14 +131,28 @@ class TodoItem extends React.Component {
           />
         <span className={styles.checkmark}></span>
         </label>
-        <input
-          type="text"
-          ref="todoInput"
-          className={styles.todoItemInput}
-          defaultValue={this.props.todo.value}
-          onBlur={this.handleBlur}
-          onKeyPress={this.handleKeyPress}
-          placeholder={this.props.todo.id ? '' : 'New item'} />
+        { this.state.editMode || !this.props.todo.id ?
+          (
+            <input
+              type="text"
+              ref="todoInput"
+              className={styles.todoItemInput}
+              defaultValue={this.props.todo.value}
+              onBlur={this.handleBlur}
+              onKeyPress={this.handleKeyPress}
+              placeholder={this.props.todo.id ? '' : 'New item'}
+            />
+          ) :
+          (
+            <p
+              className={styles.todoItemStatic}
+              onClick={this.handleStaticTextClick}
+            >
+              {this.props.todo.value}
+            </p>
+          )
+        }
+
       </div>
     );
   }

@@ -34,4 +34,16 @@ describe('todoActions', () => {
     }
     expect(updateTodo(payload)).toEqual(expectedAction);
   })
+
+  it('should create an action to reorder a todo', () => {
+    const payload = {
+      startIndex: 0,
+      endIndex: 1,
+    }
+    const expectedAction = {
+      type: todoActions.UPDATE,
+      payload
+    }
+    expect(updateTodo(payload)).toEqual(expectedAction);
+  })
 })
